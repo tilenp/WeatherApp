@@ -4,7 +4,7 @@ import com.example.domain.model.GeocodingItem
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 
-class EventAggregator {
+internal class EventAggregator {
 
     private val _selectedGeocodingItem = MutableSharedFlow<GeocodingItem>(replay = 1)
     val selectedGeocodingItem: SharedFlow<GeocodingItem> = _selectedGeocodingItem
