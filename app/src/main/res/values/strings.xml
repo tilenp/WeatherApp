@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+
+    <!-- errors -->
+    <string name="network_error">No internet connection</string>
+    <string name="api_key_error">Invalid or missing API key</string>
+    <string name="server_error">Server error. Please try again later</string>
+    <string name="unknown_error">Something went wrong</string>
 </resources>
