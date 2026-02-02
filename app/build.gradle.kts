@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.com.google.dagger.hilt.android)
+    kotlin("kapt")
 }
 
 android {
@@ -49,6 +51,9 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
 
+    /** Coil **/
+    implementation(libs.coil.compose)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -62,4 +67,24 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    /** Hilt **/
+    implementation(libs.com.google.dagger.hilt.android)
+    kapt(libs.com.google.dagger.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
+
+    /** Jupiter **/
+    testImplementation(libs.org.junit.jupiter.junit.jupiter)
+    testRuntimeOnly(libs.junit.platform.launcher)
+
+    /** MockK **/
+    testImplementation(libs.io.mockk.mockk)
+    testImplementation(libs.io.mockk.mockk.agent.jvm)
+
+    /** Retrofit **/
+    implementation(libs.com.squareup.retrofit2.retrofit)
+}
+
+kapt {
+    correctErrorTypes = true
 }
