@@ -65,6 +65,9 @@ dependencies {
     implementation(libs.com.google.dagger.hilt.android)
     kapt(libs.com.google.dagger.hilt.android.compiler)
 
+    /** Location **/
+    implementation(libs.play.services.location)
+
     /** MockK **/
     testImplementation(libs.io.mockk.mockk)
     testImplementation(libs.io.mockk.mockk.agent.jvm)
