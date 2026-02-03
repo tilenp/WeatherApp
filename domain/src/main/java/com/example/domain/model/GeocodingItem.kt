@@ -5,4 +5,8 @@ data class GeocodingItem(
     val latLng: LatLng,
     val country: String,
     val state: String?,
-)
+) {
+    fun getCityName(): String {
+        return if (state != null) "$name, $state, $country" else "$name, $country"
+    }
+}
