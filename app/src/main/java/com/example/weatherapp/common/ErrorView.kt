@@ -24,7 +24,7 @@ import com.example.weatherapp.ui.theme.WeatherAppTheme
 @Composable
 internal fun ErrorView(
     message: String,
-    onReloadClick: () -> Unit,
+    onRetryClick: () -> Unit,
 ) {
     Scaffold { padding ->
         Column(
@@ -37,7 +37,7 @@ internal fun ErrorView(
                 message = message
             )
             ReloadButton(
-                onReloadClick = onReloadClick,
+                onRetryClick = onRetryClick,
             )
             Spacer(modifier = Modifier.height(Dimens.spacing16))
         }
@@ -67,14 +67,14 @@ private fun MessageView(
 
 @Composable
 private fun ReloadButton(
-    onReloadClick: () -> Unit
+    onRetryClick: () -> Unit
 ) {
     Button(
-        onClick = onReloadClick,
+        onClick = onRetryClick,
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.reload),
+            text = stringResource(R.string.retry),
             textAlign = TextAlign.Center
         )
     }
@@ -94,7 +94,7 @@ private fun PreviewErrorView() {
     WeatherAppTheme {
         ErrorView(
             message = "Something went wrong",
-            onReloadClick = {},
+            onRetryClick = {},
         )
     }
 }

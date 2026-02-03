@@ -54,7 +54,7 @@ private fun ForecastScreen(
 
         is ForecastStateUi.Message -> ErrorView(
             message = stringResource(id = stateUi.messageId),
-            onReloadClick = onReloadClick,
+            onRetryClick = onReloadClick,
         )
     }
 }

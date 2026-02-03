@@ -1,4 +1,4 @@
-package com.example.weatherapp.screens.forecast.di
+package com.example.weatherapp.di
 
 import com.example.weatherapp.screens.EventAggregator
 import com.example.weatherapp.utils.DispatcherProvider
