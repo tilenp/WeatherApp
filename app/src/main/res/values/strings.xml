@@ -1,6 +1,20 @@
 <resources>
     <string name="app_name">WeatherApp</string>
 
+    <string name="unknown_city">unknown city</string>
+    <string name="search_city_icon">search city icon</string>
+    <string name="load_forecast_for_my_city">load forecast for my city</string>
+    <string name="weather_icon">weather icon</string>
+    <string name="feels_like">feels like: %s</string>
+    <string name="pressure">pressure: %s</string>
+    <string name="humidity">humidity: %s</string>
+    <string name="wind_speed">wind: %s</string>
+    <string name="location_permission_title">Permission required</string>
+    <string name="location_permission_rationale">We need to access your location to be able to load weather forecast for your city.</string>
+    <string name="ok">ok</string>
+    <string name="dismiss">dismiss</string>
+    <string name="reload">reload</string>
+
     <!-- errors -->
     <string name="network_error">No internet connection</string>
     <string name="api_key_error">Invalid or missing API key</string>
