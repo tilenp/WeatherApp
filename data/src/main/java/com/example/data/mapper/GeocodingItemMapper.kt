@@ -29,7 +29,7 @@ internal class GeocodingItemMapper @Inject constructor() {
 
     private fun resolveName(dto: GeocodingItemDto, locale: Locale): String? {
         return dto.localNames
-            ?.get(locale.toLanguageTag())
+            ?.get(locale.language)
             ?.takeIf { it.isNotBlank() }
             ?: dto.name
     }
