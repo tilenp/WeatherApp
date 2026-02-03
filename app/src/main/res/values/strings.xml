@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WeatherApp</string>
 
+    <!-- Forecast screen -->
     <string name="unknown_city">unknown city</string>
     <string name="search_city_icon">search city icon</string>
     <string name="load_forecast_for_my_city">load forecast for my city</string>
@@ -14,7 +15,9 @@
     <string name="ok">ok</string>
     <string name="dismiss">dismiss</string>
     <string name="retry">retry</string>
-
+    <!-- Search City screen -->
+    <string name="back_button">back button</string>
+    <string name="search_hint">city,state code,country code</string>
     <!-- errors -->
     <string name="network_error">No internet connection</string>
     <string name="api_key_error">Invalid or missing API key</string>
