@@ -25,7 +25,7 @@ internal class WeatherRepositoryImpl @Inject constructor(
             lon = latLng.lon,
             exclude = exclude,
             units = units,
-            lang = locale.toLanguageTag(),
+            lang = locale.language,
         )
         weatherDataMapper.map(dto = dto)
     }

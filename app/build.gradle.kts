@@ -46,6 +46,10 @@ kotlin {
     }
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 dependencies {
     /** project modules **/
     implementation(project(":data"))
@@ -53,6 +57,9 @@ dependencies {
 
     /** Coil **/
     implementation(libs.coil.compose)
+
+    /** Coroutines **/
+    testImplementation(libs.kotlinx.coroutines.test)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
@@ -84,6 +91,9 @@ dependencies {
 
     /** Retrofit **/
     implementation(libs.com.squareup.retrofit2.retrofit)
+
+    /** Turbine **/
+    testImplementation(libs.app.cash.turbine.turbine)
 }
 
 kapt {
