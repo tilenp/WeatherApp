@@ -181,7 +181,7 @@ internal class ForecastViewModelTest {
         eventAggregator.setSelectedGeocodingItem(geocodingItem)
         testDispatcher.scheduler.advanceUntilIdle()
 
-        viewModel.onReloadClick()
+        viewModel.onRetryClick()
         testDispatcher.scheduler.advanceUntilIdle()
 
         coVerify(atLeast = 2) {

@@ -46,6 +46,7 @@ internal class SearchCityViewModel @Inject constructor(
     }
 
     fun onSearchClick() {
+        state.update { it.copy(messageId = null) }
         viewModelScope.launch(dispatcherProvider.io) {
             state.update { it.copy(isLoading = true) }
             val address = state.value.searchInput.text

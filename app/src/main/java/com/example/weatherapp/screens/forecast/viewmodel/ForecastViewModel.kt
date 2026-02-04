@@ -93,9 +93,10 @@ internal class ForecastViewModel @Inject constructor(
         }
     }
 
-    fun onReloadClick() {
+    fun onRetryClick() {
+        state.update { it.copy(messageId = null) }
+        val selectedGeocodingItem = eventAggregator.selectedGeocodingItem.replayCache.firstOrNull()
         viewModelScope.launch(dispatcherProvider.io) {
-            val selectedGeocodingItem = eventAggregator.selectedGeocodingItem.firstOrNull()
             if (selectedGeocodingItem != null) {
                 eventAggregator.setSelectedGeocodingItem(geocodingItem = selectedGeocodingItem)
             } else {

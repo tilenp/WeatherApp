@@ -30,7 +30,7 @@ internal fun ForecastScreen(
         onSearchIconClick = navigateToSearchCityDestination,
         onLoadForecastForMyLocationClick = viewModel::loadForecastForMyLocation,
         showLocationPermissionRationale = viewModel::showLocationPermissionRationale,
-        onReloadClick = viewModel::onReloadClick,
+        onRetryClick = viewModel::onRetryClick,
     )
 }
 
@@ -40,7 +40,7 @@ private fun ForecastScreen(
     onSearchIconClick: () -> Unit,
     onLoadForecastForMyLocationClick: () -> Unit,
     showLocationPermissionRationale: (Boolean) -> Unit,
-    onReloadClick: () -> Unit,
+    onRetryClick: () -> Unit,
 ) {
     when (stateUi) {
         is ForecastStateUi.Loading -> LoadingView()
@@ -54,7 +54,7 @@ private fun ForecastScreen(
 
         is ForecastStateUi.Message -> ErrorView(
             message = stringResource(id = stateUi.messageId),
-            onRetryClick = onReloadClick,
+            onRetryClick = onRetryClick,
         )
     }
 }
@@ -120,7 +120,7 @@ private fun ForecastScreenPreview() {
             onSearchIconClick = {},
             onLoadForecastForMyLocationClick = {},
             showLocationPermissionRationale = {},
-            onReloadClick = {},
+            onRetryClick = {},
         )
     }
 }
@@ -142,7 +142,7 @@ private fun AssetPerformanceScreenLoadingPreview() {
             onSearchIconClick = {},
             onLoadForecastForMyLocationClick = {},
             showLocationPermissionRationale = {},
-            onReloadClick = {},
+            onRetryClick = {},
         )
     }
 }
