@@ -7,14 +7,21 @@ import com.example.domain.model.GeocodingItem
 internal sealed interface SearchCityStateUi {
     data object Loading : SearchCityStateUi
 
-    data class Content(
-        val searchInput: TextFieldValue,
-        val geocodingItems: List<GeocodingItem>?,
-        @field:StringRes val messageId: Int?,
-        val searchButton: ButtonUi,
-    ) : SearchCityStateUi
-}
+    sealed interface Content : SearchCityStateUi {
+        val searchInput: TextFieldValue
 
-internal data class ButtonUi(
-    val isEnabled: Boolean,
-)
+        data class GeocodingItems(
+            override val searchInput: TextFieldValue,
+            val geocodingItems: List<GeocodingItem>,
+        ) : Content
+
+        data class Message(
+            override val searchInput: TextFieldValue,
+            @field:StringRes val messageId: Int,
+        ) : Content
+
+        data class Empty(
+            override val searchInput: TextFieldValue,
+        ) : Content
+    }
+}

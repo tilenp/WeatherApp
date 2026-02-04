@@ -1,6 +1,6 @@
 package com.example.weatherapp.screens.searchcity.mapper
 
-import com.example.weatherapp.screens.searchcity.model.ButtonUi
+import com.example.weatherapp.R
 import com.example.weatherapp.screens.searchcity.model.SearchCityStateData
 import com.example.weatherapp.screens.searchcity.model.SearchCityStateUi
 import javax.inject.Inject
@@ -12,18 +12,21 @@ internal class SearchCityStateUiMapper @Inject constructor() {
     ): SearchCityStateUi {
         return when {
             stateData.isLoading -> SearchCityStateUi.Loading
-            else -> SearchCityStateUi.Content(
+            stateData.messageId != null -> SearchCityStateUi.Content.Message(
+                searchInput = stateData.searchInput,
+                messageId = stateData.messageId,
+            )
+            stateData.geocodingItems?.isEmpty() == true -> SearchCityStateUi.Content.Message(
+                searchInput = stateData.searchInput,
+                messageId = R.string.no_results_try_another_city,
+            )
+            stateData.geocodingItems?.isNotEmpty() == true -> SearchCityStateUi.Content.GeocodingItems(
                 searchInput = stateData.searchInput,
                 geocodingItems = stateData.geocodingItems,
-                messageId = stateData.messageId,
-                searchButton = mapSearchButton(stateData = stateData),
+            )
+            else -> SearchCityStateUi.Content.Empty(
+                searchInput = stateData.searchInput,
             )
         }
-    }
-
-    private fun mapSearchButton(stateData: SearchCityStateData): ButtonUi {
-        val isInputValid = stateData.searchInput.text.isNotEmpty()
-        val noMessage = stateData.messageId == null
-        return ButtonUi(isEnabled = isInputValid && noMessage)
     }
 }

@@ -77,7 +77,7 @@ class SearchCityViewModelTest {
             viewModel.onSearchClick()
             testDispatcher.scheduler.advanceUntilIdle()
 
-            val content2 = awaitItem() as SearchCityStateUi.Content
+            val content2 = awaitItem() as SearchCityStateUi.Content.GeocodingItems
             assertEquals(geocodingItems, content2.geocodingItems)
         }
     }
@@ -102,7 +102,7 @@ class SearchCityViewModelTest {
             viewModel.onSearchClick()
             testDispatcher.scheduler.advanceUntilIdle()
 
-            val message = awaitItem() as SearchCityStateUi.Content
+            val message = awaitItem() as SearchCityStateUi.Content.Message
             assertEquals(R.string.network_error, message.messageId)
         }
     }

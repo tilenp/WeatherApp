@@ -21,7 +21,6 @@ import com.example.domain.model.GeocodingItem
 import com.example.domain.model.LatLng
 import com.example.weatherapp.R
 import com.example.weatherapp.common.MessageView
-import com.example.weatherapp.screens.searchcity.model.ButtonUi
 import com.example.weatherapp.screens.searchcity.model.SearchCityStateUi
 import com.example.weatherapp.ui.theme.Dimens
 import com.example.weatherapp.ui.theme.WeatherAppTheme
@@ -45,22 +44,19 @@ internal fun SearchCityContentView(
             )
         },
     ) { padding ->
-        when {
-            stateUi.messageId != null -> MessageView(
-                modifier = Modifier.fillMaxSize(),
-                message = stringResource(id = stateUi.messageId)
-            )
-            stateUi.geocodingItems?.isNotEmpty() == true -> CitiesView(
+        when (stateUi) {
+            is SearchCityStateUi.Content.GeocodingItems -> CitiesView(
                 modifier = Modifier
                     .padding(padding)
                     .padding(horizontal = Dimens.spacing16),
                 geocodingItems = stateUi.geocodingItems,
                 onGeocodingItemSelected = onGeocodingItemSelected,
             )
-            stateUi.geocodingItems?.isEmpty() == true ->  MessageView(
+            is SearchCityStateUi.Content.Message -> MessageView(
                 modifier = Modifier.fillMaxSize(),
-                message = stringResource(id = R.string.no_results_try_another_city)
+                message = stringResource(id = stateUi.messageId)
             )
+            is SearchCityStateUi.Content.Empty -> {}
         }
     }
 }
@@ -114,10 +110,10 @@ private fun CityView(
     name = "Dark Mode"
 )
 @Composable
-internal fun SearchCityContentViewPreview() {
+internal fun SearchCityGeocodingItemsPreview() {
     WeatherAppTheme {
         SearchCityContentView(
-            stateUi = SearchCityStateUi.Content(
+            stateUi = SearchCityStateUi.Content.GeocodingItems(
                 searchInput = TextFieldValue("London"),
                 geocodingItems = listOf(
                     GeocodingItem(
@@ -166,8 +162,31 @@ internal fun SearchCityContentViewPreview() {
                         state = "NSW"
                     )
                 ),
-                messageId = null,
-                searchButton = ButtonUi(isEnabled = true)
+            ),
+            onSearchInputChange = {},
+            onBackClick = {},
+            onSearchClick = {},
+            onGeocodingItemSelected = {},
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    name = "Light Mode"
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
+@Composable
+internal fun SearchCityMessagePreview() {
+    WeatherAppTheme {
+        SearchCityContentView(
+            stateUi = SearchCityStateUi.Content.Message(
+                searchInput = TextFieldValue("Unknown City"),
+                messageId = R.string.no_results_try_another_city,
             ),
             onSearchInputChange = {},
             onBackClick = {},

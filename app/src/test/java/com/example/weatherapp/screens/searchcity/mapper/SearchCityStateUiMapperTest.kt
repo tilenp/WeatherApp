@@ -3,11 +3,10 @@ package com.example.weatherapp.screens.searchcity.mapper
 import androidx.compose.ui.text.input.TextFieldValue
 import com.example.domain.model.GeocodingItem
 import com.example.domain.model.LatLng
+import com.example.weatherapp.R
 import com.example.weatherapp.screens.searchcity.model.SearchCityStateData
 import com.example.weatherapp.screens.searchcity.model.SearchCityStateUi
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class SearchCityStateUiMapperTest {
@@ -16,80 +15,72 @@ internal class SearchCityStateUiMapperTest {
 
     @Test
     fun `map returns Loading when isLoading is true`() {
-        val state = SearchCityStateData(
-            isLoading = true,
-            searchInput = TextFieldValue("London"),
-            messageId = null
-        )
+        val stateData = SearchCityStateData(isLoading = true)
 
-        val result = mapper.map(state)
+        val result = mapper.map(stateData)
 
         assertTrue(result is SearchCityStateUi.Loading)
     }
 
     @Test
-    fun `map returns Content when messageId is present`() {
-        val state = SearchCityStateData(
-            isLoading = false,
-            searchInput = TextFieldValue("London"),
-            messageId = 123
+    fun `map returns Message when messageId is not null`() {
+        val stateData = SearchCityStateData(
+            messageId = 123,
+            searchInput = TextFieldValue("query")
         )
 
-        val result = mapper.map(state)
+        val result = mapper.map(stateData)
 
-        assertTrue(result is SearchCityStateUi.Content)
-        assertEquals(123, (result as SearchCityStateUi.Content).messageId)
+        assertTrue(result is SearchCityStateUi.Content.Message)
+        val message = result as SearchCityStateUi.Content.Message
+        assertEquals("query", message.searchInput.text)
+        assertEquals(123, message.messageId)
     }
 
     @Test
-    fun `map returns Content when not loading`() {
-        val searchInput = TextFieldValue("Berlin")
-        val geocodingItems = listOf(
+    fun `map returns Message with no_results_try_another_city when geocodingItems is empty`() {
+        val stateData = SearchCityStateData(
+            geocodingItems = emptyList(),
+            searchInput = TextFieldValue("query")
+        )
+
+        val result = mapper.map(stateData)
+
+        assertTrue(result is SearchCityStateUi.Content.Message)
+        val message = result as SearchCityStateUi.Content.Message
+        assertEquals(R.string.no_results_try_another_city, message.messageId)
+        assertEquals("query", message.searchInput.text)
+    }
+
+    @Test
+    fun `map returns GeocodingItems when geocodingItems is not empty`() {
+        val items = listOf(
             GeocodingItem(
-                name = "Berlin",
-                latLng = LatLng(52.52, 13.405),
-                country = "DE",
+                name = "City",
+                latLng = LatLng(0.0, 0.0),
+                country = "country",
                 state = null
             )
         )
-
-        val state = SearchCityStateData(
-            isLoading = false,
-            searchInput = searchInput,
-            geocodingItems = geocodingItems,
-            messageId = null
+        val stateData = SearchCityStateData(
+            geocodingItems = items,
+            searchInput = TextFieldValue("query")
         )
 
-        val result = mapper.map(state)
+        val result = mapper.map(stateData)
 
-        assertTrue(result is SearchCityStateUi.Content)
-
-        val content = result as SearchCityStateUi.Content
-        assertEquals(searchInput, content.searchInput)
-        assertEquals(geocodingItems, content.geocodingItems)
+        assertTrue(result is SearchCityStateUi.Content.GeocodingItems)
+        val geocoding = result as SearchCityStateUi.Content.GeocodingItems
+        assertEquals(items, geocoding.geocodingItems)
+        assertEquals("query", geocoding.searchInput.text)
     }
 
     @Test
-    fun `search button is enabled when input is not empty`() {
-        val state = SearchCityStateData(
-            searchInput = TextFieldValue("Paris"),
-            messageId = null
-        )
+    fun `map returns Empty when geocoding items and message are null`() {
+        val stateData = SearchCityStateData()
 
-        val result = mapper.map(state) as SearchCityStateUi.Content
+        val result = mapper.map(stateData)
 
-        assertTrue(result.searchButton.isEnabled)
-    }
-
-    @Test
-    fun `search button is disabled when input is empty`() {
-        val state = SearchCityStateData(
-            searchInput = TextFieldValue(""),
-            messageId = null
-        )
-
-        val result = mapper.map(state) as SearchCityStateUi.Content
-
-        assertFalse(result.searchButton.isEnabled)
+        assertTrue(result is SearchCityStateUi.Content.Empty)
     }
 }
