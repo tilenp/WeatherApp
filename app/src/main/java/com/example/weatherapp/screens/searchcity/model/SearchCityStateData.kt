@@ -7,6 +7,6 @@ import com.example.domain.model.GeocodingItem
 internal data class SearchCityStateData(
     val isLoading: Boolean = false,
     val searchInput: TextFieldValue = TextFieldValue(""),
-    val geocodingItems: List<GeocodingItem> = emptyList(),
+    val geocodingItems: List<GeocodingItem>? = null,
     @field:StringRes val messageId: Int? = null,
 )

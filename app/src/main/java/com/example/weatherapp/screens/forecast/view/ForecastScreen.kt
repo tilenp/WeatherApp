@@ -135,7 +135,7 @@ private fun ForecastScreenPreview() {
     name = "Dark Mode"
 )
 @Composable
-private fun AssetPerformanceScreenLoadingPreview() {
+private fun ForecastScreenLoadingPreview() {
     WeatherAppTheme {
         ForecastScreen(
             stateUi = ForecastStateUi.Loading,

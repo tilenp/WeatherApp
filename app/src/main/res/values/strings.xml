@@ -18,6 +18,7 @@
     <!-- Search City screen -->
     <string name="back_button">back button</string>
     <string name="search_hint">city,state code,country code</string>
+    <string name="no_results_try_another_city">No results, try another city</string>
     <!-- errors -->
     <string name="network_error">No internet connection</string>
     <string name="api_key_error">Invalid or missing API key</string>

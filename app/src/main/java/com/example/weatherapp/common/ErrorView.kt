@@ -45,7 +45,7 @@ internal fun ErrorView(
 }
 
 @Composable
-private fun MessageView(
+internal fun MessageView(
     modifier: Modifier = Modifier,
     message: String,
 ) {

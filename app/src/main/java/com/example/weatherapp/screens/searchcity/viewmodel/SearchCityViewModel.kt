@@ -42,7 +42,7 @@ internal class SearchCityViewModel @Inject constructor(
         )
 
     fun onSearchInputChange(searchInput: TextFieldValue) {
-        state.update { it.copy(searchInput = searchInput) }
+        state.update { it.copy(searchInput = searchInput, messageId = null) }
     }
 
     fun onSearchClick() {

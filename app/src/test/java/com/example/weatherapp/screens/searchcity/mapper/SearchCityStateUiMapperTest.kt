@@ -28,7 +28,7 @@ internal class SearchCityStateUiMapperTest {
     }
 
     @Test
-    fun `map returns Message when messageId is present`() {
+    fun `map returns Content when messageId is present`() {
         val state = SearchCityStateData(
             isLoading = false,
             searchInput = TextFieldValue("London"),
@@ -37,12 +37,12 @@ internal class SearchCityStateUiMapperTest {
 
         val result = mapper.map(state)
 
-        assertTrue(result is SearchCityStateUi.Message)
-        assertEquals(123, (result as SearchCityStateUi.Message).messageId)
+        assertTrue(result is SearchCityStateUi.Content)
+        assertEquals(123, (result as SearchCityStateUi.Content).messageId)
     }
 
     @Test
-    fun `map returns Content when not loading and no message`() {
+    fun `map returns Content when not loading`() {
         val searchInput = TextFieldValue("Berlin")
         val geocodingItems = listOf(
             GeocodingItem(
@@ -70,7 +70,7 @@ internal class SearchCityStateUiMapperTest {
     }
 
     @Test
-    fun `search button is enabled when input is not empty and no message`() {
+    fun `search button is enabled when input is not empty`() {
         val state = SearchCityStateData(
             searchInput = TextFieldValue("Paris"),
             messageId = null

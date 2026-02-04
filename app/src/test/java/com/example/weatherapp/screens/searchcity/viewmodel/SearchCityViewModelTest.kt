@@ -102,7 +102,7 @@ class SearchCityViewModelTest {
             viewModel.onSearchClick()
             testDispatcher.scheduler.advanceUntilIdle()
 
-            val message = awaitItem() as SearchCityStateUi.Message
+            val message = awaitItem() as SearchCityStateUi.Content
             assertEquals(R.string.network_error, message.messageId)
         }
     }

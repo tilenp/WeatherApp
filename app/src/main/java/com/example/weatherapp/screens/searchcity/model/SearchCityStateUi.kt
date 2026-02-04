@@ -9,12 +9,9 @@ internal sealed interface SearchCityStateUi {
 
     data class Content(
         val searchInput: TextFieldValue,
-        val geocodingItems: List<GeocodingItem>,
+        val geocodingItems: List<GeocodingItem>?,
+        @field:StringRes val messageId: Int?,
         val searchButton: ButtonUi,
-    ) : SearchCityStateUi
-
-    data class Message(
-        @field:StringRes val messageId: Int,
     ) : SearchCityStateUi
 }
 

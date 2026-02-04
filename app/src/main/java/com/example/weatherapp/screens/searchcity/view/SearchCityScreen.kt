@@ -6,14 +6,12 @@ import android.content.res.Configuration
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.domain.model.GeocodingItem
 import com.example.domain.model.LatLng
-import com.example.weatherapp.common.ErrorView
 import com.example.weatherapp.common.LoadingView
 import com.example.weatherapp.screens.searchcity.model.ButtonUi
 import com.example.weatherapp.screens.searchcity.model.SearchCityStateUi
@@ -56,11 +54,6 @@ private fun SearchCityScreen(
             onSearchClick = onSearchClick,
             onGeocodingItemSelected = onGeocodingItemSelected,
         )
-
-        is SearchCityStateUi.Message -> ErrorView(
-            message = stringResource(id = stateUi.messageId),
-            onRetryClick = onSearchClick,
-        )
     }
 }
 
@@ -74,7 +67,7 @@ private fun SearchCityScreen(
     name = "Dark Mode"
 )
 @Composable
-internal fun ForecastScreenPreview() {
+internal fun SearchCityScreenPreview() {
     WeatherAppTheme {
         SearchCityScreen(
             stateUi = SearchCityStateUi.Content(
@@ -126,7 +119,8 @@ internal fun ForecastScreenPreview() {
                         state = "NSW"
                     )
                 ),
-                searchButton = ButtonUi(isEnabled = true)
+                messageId = null,
+                searchButton = ButtonUi(isEnabled = true),
             ),
             onSearchInputChange = {},
             onBackClick = {},
@@ -146,10 +140,38 @@ internal fun ForecastScreenPreview() {
     name = "Dark Mode"
 )
 @Composable
-internal fun AssetPerformanceScreenLoadingPreview() {
+internal fun SearchCityScreenLoadingPreview() {
     WeatherAppTheme {
         SearchCityScreen(
             stateUi = SearchCityStateUi.Loading,
+            onSearchInputChange = {},
+            onBackClick = {},
+            onSearchClick = {},
+            onGeocodingItemSelected = {},
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    name = "Light Mode"
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
+@Composable
+internal fun SearchCityScreenMessagePreview() {
+    WeatherAppTheme {
+        SearchCityScreen(
+            stateUi = SearchCityStateUi.Content(
+                searchInput = TextFieldValue("Unknown City"),
+                geocodingItems = emptyList(),
+                messageId = null,
+                searchButton = ButtonUi(isEnabled = true),
+
+                ),
             onSearchInputChange = {},
             onBackClick = {},
             onSearchClick = {},

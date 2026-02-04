@@ -12,10 +12,10 @@ internal class SearchCityStateUiMapper @Inject constructor() {
     ): SearchCityStateUi {
         return when {
             stateData.isLoading -> SearchCityStateUi.Loading
-            stateData.messageId != null -> SearchCityStateUi.Message(messageId = stateData.messageId)
             else -> SearchCityStateUi.Content(
                 searchInput = stateData.searchInput,
                 geocodingItems = stateData.geocodingItems,
+                messageId = stateData.messageId,
                 searchButton = mapSearchButton(stateData = stateData),
             )
         }
